@@ -13,23 +13,21 @@ var Timer = {
         Timer.output().innerHTML = "";
         Timer.config.seconds = sec;
     },
-    "start": function(sec){
-        Timer.clear(sec);
-        var counter = setInterval(function(){
-            var secondCount = Timer.config.seconds;
-            Timer.display(secondCount);
-            if(secondCount <= 0){
+    "start": setInterval(this.myCounter, 1000),
+    "myCounter": function(){
+      var secondCount = Timer.config.seconds;
+      Timer.display(secondCount);
+      if(secondCount <= 0){
 
-                Timer.config.seconds = 10;
-                clearInterval(counter);
-                Timer.end();
+          Timer.config.seconds = 10;
+          clearInterval(Timer.myCounter);
+          Timer.end();
 
-            }
-            Timer.config.seconds = secondCount - 1;
-        }, 1000);
-    },
-    "stop": function(){
-      clearInterval(counter);
+      }
+      Timer.config.seconds = secondCount - 1;
+  },
+  "stop": function(){
+      clearInterval(Timer.myCounter);
     },
     "display": function(data){
         Timer.output().innerHTML = data;
@@ -47,6 +45,19 @@ var Timer = {
 var startButton = document.getElementsByTagName("button")[0];
 var formChoice = document.getElementById("form-choice");
 startButton.addEventListener("click", function(){
-  timeLimit = parseInt(formChoice.value);
-  Timer.start(timeLimit);
+  // timeLimit = parseInt(formChoice.value);
+  // Timer.start(timeLimit);
+    Timer.start;
 });
+
+// var myVar = setInterval(myTimer, 1000);
+//
+// function myTimer() {
+//     var d = new Date();
+//     var t = d.toLocaleTimeString();
+//     document.getElementById("demo").innerHTML = t;
+// }
+//
+// function myStopFunction() {
+//     clearInterval(myVar);
+// }
